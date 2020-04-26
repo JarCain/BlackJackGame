@@ -1,49 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static Blackjack.Card;
 
 namespace Blackjack
 {
     class Deck
     {
-        const int numCards = 52;
-        private Card[] deck;
+        public static string[] DeckOfCards = {"2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "JS", "QS", "KS", "AS",
+                                              "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H", "10H", "JH", "QH", "KH", "AH",
+                                              "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "JD", "QD", "KD", "AD",
+                                              "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "JC", "QC", "KC", "AC",};
 
-        public Deck()
-        {
-            deck = new Card[numCards];
-        }
-
-        public Card[] GetDeck { get { return deck; } }
-
-        public void CreateDeck()
-        {
-            int i = 0;
-            foreach (SUIT s in Enum.GetValues(typeof(SUIT)))
-            {
-                foreach (VALUE n in Enum.GetValues(typeof(VALUE)))
-                {
-                    deck[i] = new Card { MySuit = s, MyNumber = n };
-                    i++;
-                }
-            }
-        }
-
-        public void Shuffle()
+        public static void Shuffle()
         {
             Random rand = new Random();
-            Card temp;
 
-            for (int shuffleTimes = 0; shuffleTimes < 1000; shuffleTimes++)
+            for (int i = 0; i < DeckOfCards.Length - 1; i++)
             {
-                for (int i = 0; i < numCards; i++)
-                {
-                    int secondCardIndex = rand.Next(13);
-                    temp = deck[i];
-                    deck[i] = deck[secondCardIndex];
-                    deck[secondCardIndex] = temp;
-                }
+                int randShuffle = rand.Next(i, DeckOfCards.Length);
+                string temp = DeckOfCards[randShuffle];
+                DeckOfCards[randShuffle] = DeckOfCards[i];
+                DeckOfCards[i] = temp;
             }
         }
     }
